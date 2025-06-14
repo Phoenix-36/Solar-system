@@ -3,7 +3,10 @@ on:
     workflow_dispatch: 
     push: 
         branches: ['main','feature/*']
-
+env:
+    MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
+    MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
+    MONGO_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
 jobs:
     Unit-Testing:
@@ -20,6 +23,12 @@ jobs:
 
             - name: Install dependence
               run: npm install
-              
+
             - name: Unit Testing
               run: npm test
+
+            - name: Archieving the artifact
+              uses: actions/upload-artifact@v3
+              with:
+                name: mocha-test-result
+                path: test-results.xml
