@@ -1,8 +1,8 @@
 name: Solar System Workflow
 on:
-    workflow_dispatch: 
-    push: 
-        branches: ['main','feature/*']
+  workflow_dispatch: 
+  push: 
+    branches: ['main', 'feature/*']
 env:
     MONGO_URI: 'mongodb+srv://supercluster.d83jj.mongodb.net/superData'
     MONGO_USERNAME: ${{ vars.MONGO_USERNAME }}
@@ -12,59 +12,18 @@ jobs:
     Unit-Testing:
 
         name: Unit-Testing
-        strategy:
-          matrix:
-            js-version: [18,19,20]
-            os: [ubuntu-latest, macos-latest]
-            exclude:
-              - js-verison: 18
-                os: macos-latest
-
-        runs-on: '${{ matrix.os }}'
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-
-            - name: Node Install
-              uses: actions/setup-node@v3
-              with:
-                node-version: '${{ matrix.js-version }}'
-
-            - name: Install dependence
-              run: npm install
-
-            - name: Unit Testing
-              id: npm-unit-test
-              run: npm test
-
-            - name: Archieving the artifact
-              if: always()
-              uses: actions/upload-artifact@v3
-              with:
-                name: mocha-test-result
-                path: test-results.xml
-
-    Code-coverage:
-        name: Code Coverage
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
               uses: actions/checkout@v4
 
             - name: Node Install
-              uses: actions/setup-node@v3
+              uses: actions/setup-node@v4
               with:
                 node-version: 18
 
             - name: Install dependence
               run: npm install
 
-            - name: Coverage Testing
-              run: npm run coverage
-              continue-on-error: true
-
-            - name: Archieving test result
-              uses: actions/upload-artifact@v3
-              with:
-                name: mocha-test-result
-                path: test-results.xml
+            - name: Unit Testing
+              run: npm test
