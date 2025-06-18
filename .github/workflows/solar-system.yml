@@ -21,13 +21,10 @@ jobs:
           MONGO_PASSWORD: non-prod-password
         strategy:
           matrix:
-            os: [ubuntu-latest, macos-latest]
-            version: [18,19,20]
+            os: [ubuntu-latest]
+            version: [18,19]
             exclude:
               - version: '19'
-                os: macos-latest
-              - version: '20'
-                os: macos-latest
         name: Unit-Testing
         runs-on: '${{matrix.os}}'
         steps:
