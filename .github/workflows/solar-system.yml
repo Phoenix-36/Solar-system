@@ -120,9 +120,11 @@ jobs:
                 echo "testing Image url using wget"
                 wget -q -O - 127.0.0.1:3000/live | grep -i 'live'
 
-            - name: Docker push
+            - name: Container Registry push
               uses: docker/build-push-action@v6
               with:
                 context: .
                 push: true
-                tags: ${{vars.DOCKERHUB_USERNAME}}/solar-system:${{github['sha']}}
+                tags: |
+                   ${{vars.DOCKERHUB_USERNAME}}/solar-system:${{github['sha']}}
+                   ghcr.io/${{github.repository_owner}}/solar-system:${{github['sha']}}
