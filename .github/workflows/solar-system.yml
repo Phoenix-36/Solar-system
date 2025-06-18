@@ -39,6 +39,7 @@ jobs:
               if: always()
               with:
                 name: mocha-test-result
+                overwrite: true
                 path: test-results.xml
 
     code-coverage:
@@ -66,4 +67,5 @@ jobs:
               with:
                 name: code-coverage-result
                 path: coverage
+                overwrite: true
                 retention-days: 5
