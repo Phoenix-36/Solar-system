@@ -81,3 +81,17 @@ jobs:
                 path: coverage
                 overwrite: true
                 retention-days: 5
+
+    Docker:
+        name: Containerization
+        needs: [Unit-Testing, code-coverage]
+        runs-on: ubuntu-latesT
+        steps:
+            - name: Checkout repo
+              uses: actions/checkout@v4
+
+            - name: Docker Login
+              uses: docker/login-action@v3
+              with:
+                username: ${{vars.DOCKERHUB_USERNAME}}
+                password: ${{secrets.DOCKERHUB_PASSWORD}}
