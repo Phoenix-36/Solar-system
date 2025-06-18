@@ -35,9 +35,10 @@ jobs:
 
             - name: Archeiving the artifact
               uses: actions/upload-artifact@v4
+              if: always()
               with:
                 name: mocha-test-result
-                path: '*.xml'
+                path: test-results.xml
 
     code-coverage:
         name: Code-Coverage
@@ -60,6 +61,7 @@ jobs:
 
             - name: Archeiving the artifact
               uses: actions/upload-artifact@v4
+              if: always()
               with:
                 name: code-coverage-result
                 path: coverage
