@@ -10,9 +10,12 @@ env:
 
 jobs:
     Unit-Testing:
-
+        strategy:
+          matrix:
+            os: [ubuntu-latest]
+            version: [18,19,20]
         name: Unit-Testing
-        runs-on: ubuntu-latest
+        runs-on: '${{matrix.os}}'
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -20,7 +23,7 @@ jobs:
             - name: Node Install
               uses: actions/setup-node@v4
               with:
-                node-version: 18
+                node-version: '${{matrix.version}}'
 
             - name: Install dependence
               run: npm install
