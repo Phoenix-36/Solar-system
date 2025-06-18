@@ -10,12 +10,24 @@ env:
 
 jobs:
     Unit-Testing:
+        services:
+          mongo-db:
+            image: siddharth67/mongo-db:non-prod
+            ports:
+              - 27017:27017
+        env:
+          MONGO_URI: 'mongodb://localhost:27017/superData'
+          MONGO_USERNAME: non-prod-user
+          MONGO_PASSWORD: non-prod-password
         strategy:
           matrix:
-            os: [ubuntu-latest]
+            os: [ubuntu-latest, macos-latest]
             version: [18,19,20]
             exclude:
-              - version: '18'
+              - version: '19'
+                os: macos-latest
+              - version: '20'
+                os: macos-latest
         name: Unit-Testing
         runs-on: '${{matrix.os}}'
         steps:
