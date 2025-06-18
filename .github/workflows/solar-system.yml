@@ -160,7 +160,7 @@ jobs:
 
 
     Dev-k8s-deploy:
-      name: DEV-K8-Deployment
+      name: DEV-K8S-Deployment
       needs: [Docker]
       runs-on: ubuntu-latest
       steps:
