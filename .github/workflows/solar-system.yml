@@ -180,6 +180,6 @@ jobs:
 
           - name: fetching the cluster details
             run: |
-              kubectl --version
+              kubectl version
               echo "----------------------------------"
               kubectl get nodes
